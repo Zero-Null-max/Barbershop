@@ -10,7 +10,7 @@
 
             while (running)
             {
-                Console.Clear(); // Очищає все перед новим рядком 
+                Console.Clear(); // Очищає все перед новим рядком
 
                 Console.WriteLine("=== БАРБЕРШОП ===");
                 Console.WriteLine("1. Довідка (про програму) ");
