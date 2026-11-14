@@ -12,23 +12,15 @@ namespace Barbershop
             while (running)
             {
                 Console.Clear(); // Очищає все перед новим рядком
-
-                Console.WriteLine("=== БАРБЕРШОП ===");
-                Console.WriteLine("1. Довідка (про програму) ");
-                Console.WriteLine("2. Розрахунок вартості послуги від часу");
-                Console.WriteLine("3. Зведена таблиця завантаженості");
-                Console.WriteLine("0. Вихід ");
-                Console.Write("Оберіть опцію: ");
+                ShowMenu();
                 string choice = Console.ReadLine();
 
                 switch (choice)
                 {
                     case "1":
                         {
-                            Console.WriteLine("Тема 19: Барбершоп. Зберігаю сутності: int номер запису, string клієнт, " +
-                                "\nstring майстер, int код, DateTime дата й час, int тривалість у хвилинах, double ціна, " +
-                                "bool чи виконано.");
-                            Console.ReadKey(true);
+                            ShowAbout();
+                            Pause();
                             break;
                         }
                     case "2":
@@ -36,15 +28,8 @@ namespace Barbershop
                             double startTime = 0.5;
                             double endTime = 2.5;
                             double step = 0.25;
-                            Console.WriteLine(" \n   " +
-                                "  Час (год):" +
-                              "    Вартість (грн):");
-                            for (double time = startTime; time <= endTime + 1e-9; time += step) // 1e-9 заберу і подивлюсь
-                            {
-                                double price = time * 500 + 100; // час * 500 + 100 (100 - ціна за миття голови)
-                                Console.WriteLine($"{time,10:F2}  {price,15:F2}");
-                            }
-                            Console.ReadKey(true);
+                            ShowCostTable(startTime, endTime, step);
+                            Pause();
                             break;
                         }
                     case "3":
@@ -95,7 +80,7 @@ namespace Barbershop
                             }
                             Console.Write($"{grandTotal, 10}");
                             Console.WriteLine();
-                                Console.ReadKey(true);
+                            Pause();
                             break;
                         }
                     case "0":
@@ -107,11 +92,44 @@ namespace Barbershop
                     default:
                         {
                             Console.Write("Такої опції не існує.Введіть ще раз: ");
-                            Console.ReadKey(true);
+                            Pause();
                             break;
                         }
                 }
             }
         }
+
+        static void ShowMenu()
+        {
+            Console.WriteLine("=== БАРБЕРШОП ===");
+            Console.WriteLine("1. Довідка (про програму) ");
+            Console.WriteLine("2. Розрахунок вартості послуги від часу");
+            Console.WriteLine("3. Зведена таблиця завантаженості");
+            Console.WriteLine("0. Вихід ");
+            Console.Write("Оберіть опцію: ");
+        }
+
+        static void ShowAbout()
+        {
+            Console.WriteLine("Тема 19: Барбершоп. Зберігаю сутності: int номер запису, string клієнт, " +
+    "\nstring майстер, int код, DateTime дата й час, int тривалість у хвилинах, double ціна, " +
+    "bool чи виконано.");
+        }
+
+        static void ShowCostTable(double start, double end, double step)
+        {
+            Console.WriteLine(" \n   " +
+                                "  Час (год):" +
+                              "    Вартість (грн):");
+            for (double time = start; time <= end + 1e-9; time += step) // 1e-9 заберу і подивлюсь
+            {
+                double price = time * 500 + 100; // час * 500 + 100 (100 - ціна за миття голови)
+                Console.WriteLine($"{time,10:F2}  {price,15:F2}");
+            }
+        }
+        static void Pause()
+        {
+            Console.ReadKey(true);
+        }
     }
-}
+} 
