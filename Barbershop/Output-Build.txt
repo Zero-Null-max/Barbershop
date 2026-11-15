@@ -1,1 +1,6 @@
-﻿
+﻿Build started at 3:35...
+1>------ Build started: Project: Barbershop, Configuration: Debug Any CPU ------
+1>  Skipping analyzers to speed up the build. You can execute 'Build' or 'Rebuild' command to run analyzers.
+1>  Barbershop -> C:\Users\Nazar\Documents\Лабораторні ОПАМ\Barbershop\Barbershop\bin\Debug\net10.0\Barbershop.dll
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+========== Build completed at 3:35 and took 04,281 seconds ==========
