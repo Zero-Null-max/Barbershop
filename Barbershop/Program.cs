@@ -26,9 +26,9 @@ namespace Barbershop
                         }
                     case "2":
                         {
-                            double startTime = 0.5;
-                            double endTime = 2.5;
-                            double step = 0.25;
+                            double startTime = ReadDouble("Введіть початковий час (год): ", 0.25, 0.5);
+                            double endTime = ReadDouble("Введіть кінцевий час (год): ", 1, 4);
+                            double step = ReadDouble("Введіть крок (год): ", 0.1, 1);
                             ShowCostTable(startTime, endTime, step);
                             Pause();
                             break;
@@ -92,29 +92,21 @@ namespace Barbershop
 
         static void ShowWorkload()
         {
-            Console.Write("Введіть кількість майстрів: ");
-            bool validMasters = int.TryParse(Console.ReadLine(), out int mastersCount);
-            Console.Write("Введіть кількість днів: ");
-            bool validDays = int.TryParse(Console.ReadLine(), out int daysCount);
-            if (!validMasters || !validDays || mastersCount <= 0 || daysCount <= 0)
-            {
-                Console.WriteLine("Введіть додатнє число!");
-                Console.ReadKey(true);
-                return;
-            }
+            int mastersСount = ReadInt("Введіть кількість майстрів", 1, 10);
+            int daysСount = ReadInt("Введіть кількість днів", 1, 7);
             int grandTotal = 0;
             Console.Write("\n");
             Console.Write("         ");
-            for (int day = 1; day <= daysCount; day++)
+            for (int day = 1; day <= daysСount; day++)
             {
                 Console.Write($"{day,8}");
             }
             Console.WriteLine($"{"Підсумок!",10}");
-            for (int master = 1; master <= mastersCount; master++)
+            for (int master = 1; master <= mastersСount; master++)
             {
                 int rowSum = 0;
                 Console.Write($" {master,8}");
-                for (int day = 1; day <= daysCount; day++)
+                for (int day = 1; day <= daysСount; day++)
                 {
                     int clients = master + day * 2;
                     rowSum += clients;
@@ -126,10 +118,10 @@ namespace Barbershop
                 Console.WriteLine("");
             }
             Console.Write($"{"Підсумок",8}");
-            for (int days = 1; days <= daysCount; days++)
+            for (int days = 1; days <= daysСount; days++)
             {
                 int colSum = 0;
-                for (int masters = 1; masters <= mastersCount; masters++)
+                for (int masters = 1; masters <= mastersСount; masters++)
                 {
                     int clients = masters + days * 2;
                     colSum += clients;
@@ -144,7 +136,7 @@ namespace Barbershop
         {
             while (true)
             {
-                Console.Write(prompt);
+                Console.Write($"{prompt}(від {min} до {max}): ");
                 bool success = double.TryParse( Console.ReadLine(), out double number);
                 if (!success)
                 {
@@ -152,7 +144,7 @@ namespace Barbershop
                 }
                 else if(number < min || number > max )
                 {
-                    Console.WriteLine("Помилка: число не входить в задані межі");
+                    Console.WriteLine($"Помилка: число має бути від {min} до {max}");
                 }
                 else
                 {
@@ -165,7 +157,7 @@ namespace Barbershop
         {
             while (true)
             {
-                Console.Write(prompt);
+                Console.Write($"{prompt}(від {min} до {max}): ");
                 bool success = int.TryParse(Console.ReadLine(), out int number);
                 if (!success)
                 {
@@ -173,7 +165,7 @@ namespace Barbershop
                 }
                 else if (number < min || number > max)
                 {
-                    Console.WriteLine("Помилка: число не входить в задані межі");
+                    Console.WriteLine($"Помилка: число має бути від {min} до {max}");
                 }
                 else
                 {
