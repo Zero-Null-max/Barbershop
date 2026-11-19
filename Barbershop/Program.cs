@@ -57,11 +57,29 @@ namespace Barbershop
                         }
                     case "6":
                         {
+                            if(FindMaxDurations(durations, itemsCount, out double maxTime, out int maxNumber))
+                            {
+                                Console.WriteLine($"Найдовша стрижка: №{maxNumber} - {maxTime:F2} год");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Записів поки немає!");
+                            }
                             Pause();
                             break;
                         }
                     case "7":
                         {
+                            int singlePrice = 500; 
+                            int[] pricesList = { 500, 700 }; 
+
+                            Console.WriteLine($"int ДО методу: {singlePrice}"); 
+                            TryChangeInt(singlePrice); 
+                            Console.WriteLine($"int ПІСЛЯ методу: {singlePrice}"); 
+
+                            Console.WriteLine($"\nМасив[0] ДО методу: {pricesList[0]}"); 
+                            ChangeArrayElement(pricesList); 
+                            Console.WriteLine($"Масив[0] ПІСЛЯ методу: {pricesList[0]}"); 
                             Pause();
                             break;
                         }
@@ -89,6 +107,9 @@ namespace Barbershop
             Console.WriteLine("3. Зведена таблиця завантаженості");
             Console.WriteLine("4. Додати тривалість");
             Console.WriteLine("5. Показати список тривалостей");
+            Console.WriteLine("6. Найдовша стрижка");
+            Console.WriteLine("7. Дослід: int проти масиву"); 
+
             Console.WriteLine("0. Вихід ");
             Console.Write("Оберіть опцію: ");
         }
@@ -231,6 +252,43 @@ namespace Barbershop
                 Console.WriteLine($" {i + 1, 5}        {durations[i], 5:F2}");
             }
         }
+
+        static bool FindMaxDurations(double[] durations, int itemsCount, out double maxTime, out int maxNumber)
+        {
+            if(itemsCount == 0)
+            {
+                maxTime = 0;
+                maxNumber = 0;
+                return false;
+            }
+
+            maxTime = durations[0];
+            maxNumber = 1;
+
+            for(int i = 0; i < itemsCount; i++)
+            {
+                if (durations[i] > maxTime)
+                {
+                    maxTime = durations[i];
+                    maxNumber = i + 1;
+                }
+            }
+
+            return true;
+        }
+
+        static void TryChangeInt(int price)
+        {
+            price = price + 100; 
+            Console.WriteLine($"Усередині TryChangeInt: {price}"); 
+        }
+
+        static void ChangeArrayElement(int[] prices)
+        {
+            prices[0] = prices[0] + 100; 
+            Console.WriteLine($"Усередині ChangeArrayElement: {prices[0]}"); 
+        }
+
         static void Pause()
         {
             Console.ReadKey(true);
