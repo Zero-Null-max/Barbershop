@@ -83,6 +83,32 @@ namespace Barbershop
                             Pause();
                             break;
                         }
+                    case "8":
+                        {
+                            ShowDurations(durations, itemsCount); 
+                            int number = ReadInt("Введіть номер запису для видалення ", 0, 100); 
+                            RemoveAt(durations, ref itemsCount, number - 1); 
+                            Pause(); 
+                            break;
+                        }
+                    case "9":
+                        {
+                            if (itemsCount == 0) 
+                            {
+                                Console.WriteLine("Записів поки немає!"); 
+                            }
+                            else
+                            {
+                                Statistics(durations, itemsCount, out double sum, out double average); 
+                                FindMaxDurations(durations, itemsCount, out double maxTime, out int maxNumber); 
+                                Console.WriteLine($"Усього записів: {itemsCount}"); 
+                                Console.WriteLine($"Загальний час: {sum:F2} год"); 
+                                Console.WriteLine($"Середній час: {average:F2} год"); 
+                                Console.WriteLine($"Найдовша стрижка: №{maxNumber} ({maxTime:F2} год)"); 
+                            }
+                            Pause(); 
+                            break;
+                        }
                     case "0":
                         {
                             Console.WriteLine("До побачення!");
@@ -108,7 +134,10 @@ namespace Barbershop
             Console.WriteLine("4. Додати тривалість");
             Console.WriteLine("5. Показати список тривалостей");
             Console.WriteLine("6. Найдовша стрижка");
-            Console.WriteLine("7. Дослід: int проти масиву"); 
+            Console.WriteLine("7. Дослід: int проти масиву");
+            Console.WriteLine("8. Видалити тривалість за номером"); 
+            Console.WriteLine("9. Показати статистику"); 
+
 
             Console.WriteLine("0. Вихід ");
             Console.Write("Оберіть опцію: ");
@@ -288,6 +317,36 @@ namespace Barbershop
             prices[0] = prices[0] + 100; 
             Console.WriteLine($"Усередині ChangeArrayElement: {prices[0]}"); 
         }
+
+        static void RemoveAt(double[] durations, ref int itemsCount, int index)
+        {
+            if (index < 0 || index >= itemsCount) 
+            {
+                Console.WriteLine("Неправильний номер запису!"); 
+                return; 
+            }
+
+            for (int i = index; i < itemsCount - 1; i++) 
+            {
+                durations[i] = durations[i + 1]; 
+            }
+
+            itemsCount--; 
+            Console.WriteLine("Запис видалено!"); 
+        }
+
+        static void Statistics(double[] durations, int itemsCount, out double sum, out double average)
+        {
+            sum = 0; 
+
+            for (int i = 0; i < itemsCount; i++) 
+            {
+                sum += durations[i]; 
+            }
+
+            average = itemsCount > 0 ? sum / itemsCount : 0; 
+        }
+
 
         static void Pause()
         {
