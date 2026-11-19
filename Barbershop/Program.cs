@@ -9,6 +9,8 @@ namespace Barbershop
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
+            double[] durations = new double[100];
+            int itemsCount = 0;
             bool running = true;
             while (running)
             {
@@ -39,6 +41,30 @@ namespace Barbershop
                             Pause();
                             break;
                         }
+                    case "4":
+                        {
+                            double newValue = ReadDouble("Введіть тривалість стрижки (год): ", 0.25, 4);
+                            AddValue(durations, ref itemsCount, newValue);
+                            Console.WriteLine($"{itemsCount}");
+                            Pause();
+                            break;
+                        }
+                    case "5":
+                        {
+                            ShowDurations(durations, itemsCount);
+                            Pause();
+                            break;
+                        }
+                    case "6":
+                        {
+                            Pause();
+                            break;
+                        }
+                    case "7":
+                        {
+                            Pause();
+                            break;
+                        }
                     case "0":
                         {
                             Console.WriteLine("До побачення!");
@@ -61,6 +87,8 @@ namespace Barbershop
             Console.WriteLine("1. Довідка (про програму) ");
             Console.WriteLine("2. Розрахунок вартості послуги від часу");
             Console.WriteLine("3. Зведена таблиця завантаженості");
+            Console.WriteLine("4. Додати тривалість");
+            Console.WriteLine("5. Показати список тривалостей");
             Console.WriteLine("0. Вихід ");
             Console.Write("Оберіть опцію: ");
         }
@@ -92,8 +120,8 @@ namespace Barbershop
 
         static void ShowWorkload()
         {
-            int mastersСount = ReadInt("Введіть кількість майстрів", 1, 10);
-            int daysСount = ReadInt("Введіть кількість днів", 1, 7);
+            int mastersСount = ReadInt("Введіть кількість майстрів ", 1, 10);
+            int daysСount = ReadInt("Введіть кількість днів ", 1, 7);
             int grandTotal = 0;
             Console.Write("\n");
             Console.Write("         ");
@@ -171,6 +199,36 @@ namespace Barbershop
                 {
                     return number;
                 }
+            }
+        }
+
+        static void AddValue(double[] durations, ref int itemsCount, double newValue)
+        {
+            if (itemsCount >= durations.Length)
+            {
+                Console.WriteLine("Місць немає!");
+                return;
+            }
+            else
+            {
+                durations[itemsCount] = newValue;
+                itemsCount += 1;
+            }
+        }
+
+        static void ShowDurations(double[] durations, int itemsCount)
+        {          
+            if(itemsCount == 0)
+            {
+                Console.WriteLine("Записів поки немає!");
+                return;
+            }
+            Console.WriteLine(" \n   " +
+               "  №: " +
+               "  Тривалість (год): ");
+            for (int i = 0; i < itemsCount; i++)
+            {
+                Console.WriteLine($" {i + 1, 5}        {durations[i], 5:F2}");
             }
         }
         static void Pause()
